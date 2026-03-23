@@ -1,0 +1,321 @@
+/* ===== PropCore AI — Dashboard ===== */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-5);
+}
+
+/* Stat row */
+.dash-stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+/* Module cards */
+.dash-rent { grid-column: 1 / 7; }
+.dash-maintenance { grid-column: 7 / -1; }
+.dash-occupancy { grid-column: 1 / 5; }
+.dash-viewings { grid-column: 5 / 9; }
+.dash-activity { grid-column: 9 / -1; }
+
+.dash-module {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.dash-module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dash-module-title {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.dash-module-body {
+  padding: var(--space-5);
+}
+
+/* Rent module */
+.rent-progress {
+  margin-bottom: var(--space-4);
+}
+
+.rent-progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.rent-amount {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.rent-pct {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--status-good);
+}
+
+.arrears-badges {
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+
+.arrears-badge-item {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-3);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+}
+
+.arrears-badge-count {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.arrears-badge-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+/* Trend chart placeholder */
+.chart-container {
+  width: 100%;
+  height: 160px;
+  position: relative;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Mini chart drawn via JS */
+.mini-chart {
+  width: 100%;
+  height: 120px;
+}
+
+/* Maintenance module */
+.maint-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.maint-status-item {
+  padding: var(--space-3);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  border: 1px solid var(--border-light);
+}
+
+.maint-status-count {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.maint-status-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.maint-priority-row {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.maint-priority-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.maint-overdue-list {
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.maint-overdue-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: var(--text-sm);
+}
+
+/* Occupancy */
+.occupancy-rate {
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.occupancy-pct {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--status-good);
+}
+
+.occupancy-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.void-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.void-item {
+  padding: var(--space-3);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+}
+
+.void-address {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.void-meta {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  display: flex;
+  gap: var(--space-3);
+  margin-top: 4px;
+}
+
+/* Viewing pipeline */
+.viewing-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+/* Activity feed */
+.activity-feed {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.activity-item:last-child { border-bottom: none; }
+
+.activity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.activity-body { flex: 1; min-width: 0; }
+
+.activity-text {
+  font-size: var(--text-sm);
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.activity-time {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.activity-filters {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* Escalation Queue */
+.escalation-queue {
+  margin-bottom: var(--space-4);
+}
+
+.escalation-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--status-urgent-bg);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-2);
+  border-left: 3px solid var(--status-urgent);
+}
+
+.escalation-item--amber {
+  background: var(--status-warning-bg);
+  border-left-color: var(--status-warning);
+}
+
+.escalation-text {
+  font-size: var(--text-sm);
+  color: var(--text);
+  flex: 1;
+}
+
+.escalation-action {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .dash-stats { grid-template-columns: repeat(2, 1fr); }
+  .dash-rent,
+  .dash-maintenance,
+  .dash-occupancy,
+  .dash-viewings,
+  .dash-activity { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+  .dash-stats { grid-template-columns: 1fr; }
+  .dashboard-grid { gap: var(--space-3); }
+}

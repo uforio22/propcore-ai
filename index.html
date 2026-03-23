@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PropCore AI — Intelligent Property Management Platform">
+  <title>PropCore AI — Property Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect width="28" height="28" rx="6" fill="var(--primary)"/>
+              <path d="M7 9h6v6H7V9zm8 0h6v6h-6V9zM7 17h6v4H7v-4zm8 0h6v4h-6v-4z" fill="white" opacity="0.9"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">PropCore</span>
+            <span class="logo-badge">AI</span>
+          </div>
+        </div>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        <a href="#dashboard" class="nav-item active" data-page="dashboard">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm10 0a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#properties" class="nav-item" data-page="properties">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+          <span>Properties</span>
+          <span class="nav-badge" id="badge-properties" style="display:none">0</span>
+        </a>
+        <a href="#tenants" class="nav-item" data-page="tenants">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zm8 0a3 3 0 11-6 0 3 3 0 016 0zm-4.07 11c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+          <span>Tenants</span>
+        </a>
+        <a href="#maintenance" class="nav-item" data-page="maintenance">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+          <span>Maintenance</span>
+          <span class="nav-badge nav-badge--red" id="badge-maintenance">3</span>
+        </a>
+        <a href="#contractors" class="nav-item" data-page="contractors">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm-2 8a23 23 0 004 .44 23 23 0 004-.44v3a2 2 0 01-2 2H8a2 2 0 01-2-2v-3z" clip-rule="evenodd"/></svg>
+          <span>Contractors</span>
+          <span class="nav-badge nav-badge--amber" id="badge-contractors">1</span>
+        </a>
+        <a href="#viewings" class="nav-item" data-page="viewings">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/></svg>
+          <span>Viewings</span>
+          <span class="nav-badge" id="badge-viewings">5</span>
+        </a>
+        <a href="#rent" class="nav-item" data-page="rent">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"/><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"/></svg>
+          <span>Rent</span>
+          <span class="nav-badge nav-badge--red" id="badge-rent">2</span>
+        </a>
+        <a href="#communications" class="nav-item" data-page="communications">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+          <span>Communications</span>
+        </a>
+        <div class="nav-divider"></div>
+        <a href="#settings" class="nav-item" data-page="settings">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="role-switcher" id="role-switcher">
+          <label class="role-label">Viewing as:</label>
+          <select id="role-select" class="role-select">
+            <option value="admin">Admin</option>
+            <option value="property_manager">Property Manager</option>
+            <option value="maintenance_coordinator">Maintenance Coordinator</option>
+            <option value="viewer">Read-only Viewer</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar" id="topbar">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+        </button>
+        <div class="topbar-search">
+          <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+          <input type="text" class="search-input" id="global-search" placeholder="Search properties, tenants, jobs...">
+        </div>
+        <div class="topbar-actions">
+          <div class="notification-trigger" id="notification-trigger">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zm0 16a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+            <span class="notification-count" id="notification-count">4</span>
+          </div>
+          <div class="notification-dropdown" id="notification-dropdown">
+            <div class="notif-header">
+              <h3>Notifications</h3>
+              <button class="notif-mark-read">Mark all read</button>
+            </div>
+            <div class="notif-list" id="notif-list"></div>
+          </div>
+          <div class="user-info">
+            <div class="user-avatar">SM</div>
+            <div class="user-details">
+              <span class="user-name">Sarah Mitchell</span>
+              <span class="user-role" id="user-role-label">Admin</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <div class="page-content" id="page-content">
+        <!-- Dynamically rendered -->
+      </div>
+    </main>
+  </div>
+
+  <script src="js/data/properties.js"></script>
+  <script src="js/data/tenants.js"></script>
+  <script src="js/data/maintenance.js"></script>
+  <script src="js/data/contractors.js"></script>
+  <script src="js/data/viewings.js"></script>
+  <script src="js/data/rent.js"></script>
+  <script src="js/data/activity.js"></script>
+  <script src="js/components/components.js"></script>
+  <script src="js/pages/dashboard.js"></script>
+  <script src="js/pages/properties.js"></script>
+  <script src="js/pages/tenants.js"></script>
+  <script src="js/pages/maintenance.js"></script>
+  <script src="js/pages/contractors.js"></script>
+  <script src="js/pages/viewings.js"></script>
+  <script src="js/pages/rent.js"></script>
+  <script src="js/pages/communications.js"></script>
+  <script src="js/pages/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

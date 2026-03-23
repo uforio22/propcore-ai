@@ -1,0 +1,68 @@
+// ===== PropCore AI — Mock Rent Data =====
+const RENT_RECORDS = [
+  { tenantId: 'T001', tenant: 'Emma Richardson', property: '14 Manor Road, Flat 1', amountDue: 950, amountPaid: 950, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-02-28', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T002', tenant: 'Daniel Okonkwo', property: '14 Manor Road, Flat 2', amountDue: 875, amountPaid: 875, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T003', tenant: 'Priya Sharma', property: '22 Elmwood Crescent', amountDue: 1450, amountPaid: 0, dueDate: '2026-03-01', status: 'Overdue', paidDate: null, daysOverdue: 22, chaseActions: [
+    { date: '2026-02-26', action: 'Pre-reminder sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-01', action: 'Due date reminder sent', channel: 'Email + In-app', agent: 'Rent Chase Agent' },
+    { date: '2026-03-04', action: '3-day follow-up sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-08', action: 'Formal arrears notice sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-15', action: 'Escalated to Admin — 14+ days overdue', channel: 'In-app', agent: 'Rent Chase Agent' },
+    { date: '2026-03-22', action: 'Tenant contacted — requested payment plan', channel: 'Phone', agent: 'Sarah Mitchell' },
+  ] },
+  { tenantId: 'T004', tenant: 'Liam Carter', property: '8 Victoria Terrace', amountDue: 600, amountPaid: 600, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-02', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T005', tenant: 'Sophie Williams', property: '8 Victoria Terrace', amountDue: 600, amountPaid: 600, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T006', tenant: 'Amir Hussain', property: '8 Victoria Terrace', amountDue: 600, amountPaid: 300, dueDate: '2026-03-01', status: 'Partial', paidDate: '2026-03-05', daysOverdue: 18, chaseActions: [
+    { date: '2026-02-26', action: 'Pre-reminder sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-01', action: 'Due date reminder sent', channel: 'Email + In-app', agent: 'Rent Chase Agent' },
+    { date: '2026-03-04', action: '3-day follow-up sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-05', action: 'Partial payment £300 received', channel: 'System', agent: 'Rent Chase Agent' },
+    { date: '2026-03-08', action: 'Remaining balance reminder sent', channel: 'Email', agent: 'Rent Chase Agent' },
+  ] },
+  { tenantId: 'T007', tenant: 'Rachel Green', property: '8 Victoria Terrace', amountDue: 600, amountPaid: 600, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-02-27', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T008', tenant: 'Jack Morrison', property: '35 Park Street', amountDue: 700, amountPaid: 700, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T009', tenant: 'Chloe Bennett', property: '35 Park Street', amountDue: 700, amountPaid: 700, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-02-28', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T010', tenant: 'Ethan Walker', property: '35 Park Street', amountDue: 700, amountPaid: 0, dueDate: '2026-03-01', status: 'Late', paidDate: null, daysOverdue: 5, chaseActions: [
+    { date: '2026-02-26', action: 'Pre-reminder sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-01', action: 'Due date reminder sent', channel: 'Email + In-app', agent: 'Rent Chase Agent' },
+    { date: '2026-03-04', action: '3-day follow-up sent', channel: 'Email', agent: 'Rent Chase Agent' },
+  ] },
+  { tenantId: 'T011', tenant: 'Megan Taylor', property: '35 Park Street', amountDue: 700, amountPaid: 700, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T012', tenant: 'Oliver Marsh', property: '91 Whiteladies Road, Unit A', amountDue: 1100, amountPaid: 1100, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-02-28', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T013', tenant: 'Grace Liu', property: '5 Clifton Down Road', amountDue: 1800, amountPaid: 1800, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T014', tenant: 'Noah Ahmed', property: '12 Gloucester Road', amountDue: 530, amountPaid: 530, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T015', tenant: 'Isla Patel', property: '12 Gloucester Road', amountDue: 530, amountPaid: 530, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-02-28', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T016', tenant: 'Harry Cooper', property: '12 Gloucester Road', amountDue: 530, amountPaid: 0, dueDate: '2026-03-01', status: 'Overdue', paidDate: null, daysOverdue: 22, chaseActions: [
+    { date: '2026-02-26', action: 'Pre-reminder sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-01', action: 'Due date reminder sent', channel: 'Email + In-app', agent: 'Rent Chase Agent' },
+    { date: '2026-03-04', action: '3-day follow-up sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-08', action: 'Formal arrears notice sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-15', action: 'Escalated to Property Manager', channel: 'In-app', agent: 'Rent Chase Agent' },
+  ] },
+  { tenantId: 'T017', tenant: 'Amy Robinson', property: '12 Gloucester Road', amountDue: 540, amountPaid: 540, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T018', tenant: 'Charlie Evans', property: '12 Gloucester Road', amountDue: 540, amountPaid: 540, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-02-27', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T019', tenant: 'Zara Khan', property: '12 Gloucester Road', amountDue: 530, amountPaid: 530, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T020', tenant: 'Tom Baker', property: '7 Redland Hill', amountDue: 825, amountPaid: 825, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T021', tenant: 'Freya Morgan', property: '44 Queens Road', amountDue: 700, amountPaid: 700, dueDate: '2026-03-01', status: 'Paid', paidDate: '2026-03-01', daysOverdue: 0, chaseActions: [] },
+  { tenantId: 'T022', tenant: 'Ben Clarke', property: '44 Queens Road', amountDue: 700, amountPaid: 0, dueDate: '2026-03-01', status: 'Late', paidDate: null, daysOverdue: 4, chaseActions: [
+    { date: '2026-02-26', action: 'Pre-reminder sent', channel: 'Email', agent: 'Rent Chase Agent' },
+    { date: '2026-03-01', action: 'Due date reminder sent', channel: 'Email + In-app', agent: 'Rent Chase Agent' },
+    { date: '2026-03-04', action: '3-day follow-up sent — awaiting response', channel: 'Email', agent: 'Rent Chase Agent' },
+  ] },
+];
+
+// Monthly collection history (rolling 12 months)
+const COLLECTION_HISTORY = [
+  { month: 'Apr 2025', rate: 94 },
+  { month: 'May 2025', rate: 97 },
+  { month: 'Jun 2025', rate: 96 },
+  { month: 'Jul 2025', rate: 98 },
+  { month: 'Aug 2025', rate: 95 },
+  { month: 'Sep 2025', rate: 93 },
+  { month: 'Oct 2025', rate: 97 },
+  { month: 'Nov 2025', rate: 96 },
+  { month: 'Dec 2025', rate: 91 },
+  { month: 'Jan 2026', rate: 95 },
+  { month: 'Feb 2026', rate: 97 },
+  { month: 'Mar 2026', rate: 86 },
+];

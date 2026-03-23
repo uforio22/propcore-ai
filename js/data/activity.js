@@ -1,0 +1,38 @@
+// ===== PropCore AI — Mock Activity Feed Data =====
+const ACTIVITY_FEED = [
+  { id: 'A001', agent: 'tenant', agentLabel: 'Tenant Support', time: '2026-03-23T14:45:00', text: 'Resolved query from Emma Richardson (14 Manor Road, Flat 1) regarding bin collection schedule. Sent property info pack.', property: '14 Manor Road, Flat 1', urgency: 'low' },
+  { id: 'A002', agent: 'maintenance', agentLabel: 'Maintenance', time: '2026-03-23T14:30:00', text: 'New P1 job logged: Boiler not producing hot water at 14 Manor Road, Flat 1. Contractor Dave Plumbing assigned.', property: '14 Manor Road, Flat 1', urgency: 'high' },
+  { id: 'A003', agent: 'rent', agentLabel: 'Rent Chase', time: '2026-03-23T14:15:00', text: 'Sent 3-day follow-up reminder to Ben Clarke (44 Queens Road). Outstanding: £700.', property: '44 Queens Road', urgency: 'medium' },
+  { id: 'A004', agent: 'contractor', agentLabel: 'Contractor Booking', time: '2026-03-23T13:50:00', text: 'Booked ClearPest Solutions for pest inspection at 12 Gloucester Road. Scheduled: 23 Mar 2026.', property: '12 Gloucester Road', urgency: 'low' },
+  { id: 'A005', agent: 'viewings', agentLabel: 'Viewings', time: '2026-03-23T13:30:00', text: 'Viewing confirmed for Jessica Turner at 14 Manor Road, Flat 3 on 24 Mar 2026 at 14:00. Calendar invite sent.', property: '14 Manor Road, Flat 3', urgency: 'low' },
+  { id: 'A006', agent: 'rent', agentLabel: 'Rent Chase', time: '2026-03-23T12:00:00', text: 'Formal arrears escalation for Priya Sharma (22 Elmwood Crescent) — 22 days overdue (£1,450). Admin notified.', property: '22 Elmwood Crescent', urgency: 'high' },
+  { id: 'A007', agent: 'maintenance', agentLabel: 'Maintenance', time: '2026-03-23T11:45:00', text: 'Job MJ-2026-008 status updated to In Progress. Dave Plumbing Services on-site at 12 Gloucester Road, Room 3.', property: '12 Gloucester Road', urgency: 'low' },
+  { id: 'A008', agent: 'tenant', agentLabel: 'Tenant Support', time: '2026-03-23T11:20:00', text: 'Escalated issue from Ethan Walker (35 Park Street, Room C) — window handle broken, security concern. Flagged as P2 to Property Manager.', property: '35 Park Street', urgency: 'high' },
+  { id: 'A009', agent: 'contractor', agentLabel: 'Contractor Booking', time: '2026-03-23T10:30:00', text: 'Compliance alert: West Country Decorators public liability insurance expired 28 Feb 2026. Contractor blocked from new bookings.', property: null, urgency: 'high' },
+  { id: 'A010', agent: 'viewings', agentLabel: 'Viewings', time: '2026-03-23T10:00:00', text: 'Follow-up sent to Laura Simmons after viewing at 14 Manor Road, Flat 3. Awaiting interest confirmation.', property: '14 Manor Road, Flat 3', urgency: 'low' },
+  { id: 'A011', agent: 'maintenance', agentLabel: 'Maintenance', time: '2026-03-23T09:45:00', text: 'New P3 job logged: Kitchen extractor fan not working at 12 Gloucester Road (communal area). Awaiting contractor assignment.', property: '12 Gloucester Road', urgency: 'low' },
+  { id: 'A012', agent: 'rent', agentLabel: 'Rent Chase', time: '2026-03-23T09:00:00', text: 'Monthly pre-reminders sent to all tenants for April rent due 01 Apr 2026. 22 reminders dispatched.', property: null, urgency: 'low' },
+  { id: 'A013', agent: 'viewings', agentLabel: 'Viewings', time: '2026-03-22T17:00:00', text: 'Referencing initiated for Alex Reeves — offer accepted for 14 Manor Road, Flat 3 at £950/month.', property: '14 Manor Road, Flat 3', urgency: 'medium' },
+  { id: 'A014', agent: 'contractor', agentLabel: 'Contractor Booking', time: '2026-03-22T16:30:00', text: 'Contractor Apex Roofing Bristol confirmed for roof inspection at 35 Park Street on 25 Mar 2026.', property: '35 Park Street', urgency: 'low' },
+  { id: 'A015', agent: 'maintenance', agentLabel: 'Maintenance', time: '2026-03-22T15:00:00', text: 'Repeat issue flag: 14 Manor Road, Flat 1 has had 3 plumbing-related jobs in the last 12 months. Flagged to Property Manager.', property: '14 Manor Road, Flat 1', urgency: 'medium' },
+  { id: 'A016', agent: 'tenant', agentLabel: 'Tenant Support', time: '2026-03-22T14:00:00', text: 'Resolved parking query from Sophie Williams (8 Victoria Terrace, Room 2). Sent allocated parking bay info.', property: '8 Victoria Terrace', urgency: 'low' },
+  { id: 'A017', agent: 'rent', agentLabel: 'Rent Chase', time: '2026-03-22T13:00:00', text: 'Partial payment (£300) logged for Amir Hussain (8 Victoria Terrace, Room 3). Remaining balance: £300.', property: '8 Victoria Terrace', urgency: 'medium' },
+  { id: 'A018', agent: 'contractor', agentLabel: 'Contractor Booking', time: '2026-03-22T11:00:00', text: 'Spark Electrical Solutions confirmed for smoke alarm replacement at 7 Redland Hill on 24 Mar 2026.', property: '7 Redland Hill', urgency: 'low' },
+  { id: 'A019', agent: 'maintenance', agentLabel: 'Maintenance', time: '2026-03-21T10:00:00', text: 'Job MJ-2026-009 (intercom buzzer at 91 Whiteladies Road) marked as Completed. Tenant notified.', property: '91 Whiteladies Road, Unit A', urgency: 'low' },
+  { id: 'A020', agent: 'viewings', agentLabel: 'Viewings', time: '2026-03-21T09:00:00', text: 'New enquiry from Ryan O\'Brien for 91 Whiteladies Road, Unit B. Needs qualifying — postgrad student.', property: '91 Whiteladies Road, Unit B', urgency: 'low' },
+  { id: 'A021', agent: 'tenant', agentLabel: 'Tenant Support', time: '2026-03-20T16:00:00', text: 'Received maintenance request from Liam Carter (8 Victoria Terrace, Room 1) — bedroom door lock broken. Triaged to Maintenance Agent.', property: '8 Victoria Terrace', urgency: 'medium' },
+  { id: 'A022', agent: 'rent', agentLabel: 'Rent Chase', time: '2026-03-20T09:00:00', text: 'Arrears summary report generated for March 2026. Total outstanding: £3,580 across 4 tenants.', property: null, urgency: 'medium' },
+  { id: 'A023', agent: 'contractor', agentLabel: 'Contractor Booking', time: '2026-03-19T14:00:00', text: 'Bristol Lock & Key assigned to broken door lock at 8 Victoria Terrace, Room 1. Awaiting PM approval.', property: '8 Victoria Terrace', urgency: 'low' },
+  { id: 'A024', agent: 'maintenance', agentLabel: 'Maintenance', time: '2026-03-19T11:00:00', text: 'Job MJ-2026-005 (dishwasher at 22 Elmwood Crescent) marked as Closed. Resolution confirmed by tenant.', property: '22 Elmwood Crescent', urgency: 'low' },
+  { id: 'A025', agent: 'viewings', agentLabel: 'Viewings', time: '2026-03-18T15:00:00', text: 'Lead David Moore (91 Whiteladies Road, Unit B) marked as Cold after no response to 2 follow-up chases.', property: '91 Whiteladies Road, Unit B', urgency: 'low' },
+];
+
+// Notifications / Escalations
+const NOTIFICATIONS = [
+  { id: 'N001', type: 'red', text: 'P1 Emergency: Boiler failure at 14 Manor Road, Flat 1 — contractor assigned, awaiting arrival', time: '25 min ago', read: false },
+  { id: 'N002', type: 'red', text: 'Arrears escalation: Priya Sharma (22 Elmwood Crescent) — 22 days overdue, £1,450. Requested payment plan.', time: '1 hr ago', read: false },
+  { id: 'N003', type: 'amber', text: 'Contractor compliance: West Country Decorators — public liability expired 28 Feb 2026. Blocked from bookings.', time: '3 hrs ago', read: false },
+  { id: 'N004', type: 'blue', text: 'Viewing follow-up needed: Laura Simmons expressed interest in 14 Manor Road, Flat 3 — awaiting your decision.', time: '4 hrs ago', read: false },
+  { id: 'N005', type: 'amber', text: 'Repeat issue alert: 14 Manor Road, Flat 1 — 3rd plumbing job in 12 months. Possible structural concern.', time: '5 hrs ago', read: true },
+  { id: 'N006', type: 'green', text: 'Referencing complete: Alex Reeves approved for 14 Manor Road, Flat 3. Ready to issue tenancy agreement.', time: '1 day ago', read: true },
+];
