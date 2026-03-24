@@ -25,6 +25,61 @@ function renderContractors() {
       </div>
     ` : ''}
 
+    <!-- Performance Ranking Leaderboard -->
+    <div class="card" style="margin-bottom:var(--space-5)">
+      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <h3 class="card-title">🏆 Performance Rankings</h3>
+          <p class="card-subtitle">Composite score: Tenant Rating (30%) + Response Time (20%) + Completion Rate (20%) + Re-visit Rate (15%) + Reliability (15%)</p>
+        </div>
+      </div>
+      <table class="data-table" style="margin-top:var(--space-3)">
+        <thead>
+          <tr>
+            <th style="width:40px">Rank</th>
+            <th>Contractor</th>
+            <th>Trade</th>
+            <th style="text-align:center">Rating</th>
+            <th style="text-align:center">Response</th>
+            <th style="text-align:center">Completion</th>
+            <th style="text-align:center">Re-visit</th>
+            <th style="text-align:center">Reliability</th>
+            <th style="text-align:center">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${CONTRACTOR_RANKINGS.map(c => {
+            const medal = c.rank === 1 ? '🥇' : c.rank === 2 ? '🥈' : c.rank === 3 ? '🥉' : c.rank;
+            const scoreColor = c.performanceScore >= 85 ? 'var(--status-good)' : c.performanceScore >= 70 ? 'var(--status-warning)' : 'var(--status-urgent)';
+            const barWidth = c.performanceScore;
+            return `
+              <tr onclick="openContractorDrawer('${c.id}')" style="cursor:pointer;${c.status === 'Expired Docs' ? 'opacity:0.6' : ''}">
+                <td style="font-size:var(--text-md);text-align:center">${medal}</td>
+                <td>
+                  <div style="font-weight:600;font-size:var(--text-sm)">${c.name}</div>
+                  <div style="font-size:var(--text-xs);color:var(--text-muted)">${c.contact}</div>
+                </td>
+                <td style="font-size:var(--text-xs)">${c.trades.join(', ')}</td>
+                <td style="text-align:center;font-size:var(--text-sm)">⭐ ${c.rating}</td>
+                <td style="text-align:center;font-size:var(--text-sm)">${c.avgResponseHrs}h</td>
+                <td style="text-align:center;font-size:var(--text-sm)">${c.completionRate}%</td>
+                <td style="text-align:center;font-size:var(--text-sm);color:${c.revisitRate <= 4 ? 'var(--status-good)' : c.revisitRate <= 6 ? 'var(--status-warning)' : 'var(--status-urgent)'}">${c.revisitRate}%</td>
+                <td style="text-align:center;font-size:var(--text-sm)">${c.reliabilityRate}%</td>
+                <td style="text-align:center;min-width:100px">
+                  <div style="display:flex;align-items:center;gap:var(--space-2);justify-content:center">
+                    <div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden;max-width:60px">
+                      <div style="width:${barWidth}%;height:100%;background:${scoreColor};border-radius:3px"></div>
+                    </div>
+                    <span style="font-weight:700;color:${scoreColor};font-size:var(--text-sm)">${c.performanceScore}</span>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+
     <div class="filter-bar">
       <div class="topbar-search" style="position:relative">
         <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
@@ -62,38 +117,60 @@ function renderContractors() {
 }
 
 function renderContractorCards(contractors) {
-  return contractors.map(c => `
-    <div class="contractor-card" onclick="openContractorDrawer('${c.id}')">
-      <div class="contractor-header">
-        <div class="contractor-avatar">${initials(c.contact)}</div>
-        <div>
-          <div class="contractor-name">${c.name}</div>
-          <div class="contractor-trade">${c.trades.join(', ')}</div>
+  return contractors.map(c => {
+    const rankInfo = CONTRACTOR_RANKINGS.find(r => r.id === c.id);
+    const rank = rankInfo ? rankInfo.rank : '—';
+    const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
+    const scoreColor = c.performanceScore >= 85 ? 'var(--status-good)' : c.performanceScore >= 70 ? 'var(--status-warning)' : 'var(--status-urgent)';
+
+    return `
+      <div class="contractor-card" onclick="openContractorDrawer('${c.id}')">
+        <div class="contractor-header">
+          <div class="contractor-avatar">${initials(c.contact)}</div>
+          <div>
+            <div class="contractor-name">${medal ? medal + ' ' : ''}${c.name}</div>
+            <div class="contractor-trade">${c.trades.join(', ')}</div>
+          </div>
+          ${statusBadge(c.status)}
         </div>
-        ${statusBadge(c.status)}
+        <div style="margin:var(--space-2) 0;display:flex;align-items:center;justify-content:space-between">
+          <div>${starRating(c.rating)}</div>
+          <div style="display:flex;align-items:center;gap:var(--space-1)">
+            <span style="font-size:var(--text-xs);color:var(--text-muted)">Score:</span>
+            <span style="font-weight:700;color:${scoreColor};font-size:var(--text-sm)">${c.performanceScore}/100</span>
+          </div>
+        </div>
+        <div class="contractor-stats">
+          <div class="contractor-stat">
+            <div class="contractor-stat-value">${c.jobsCompleted}</div>
+            <div class="contractor-stat-label">Jobs Done</div>
+          </div>
+          <div class="contractor-stat">
+            <div class="contractor-stat-value">${c.avgResponseHrs}h</div>
+            <div class="contractor-stat-label">Avg Response</div>
+          </div>
+          <div class="contractor-stat">
+            <div class="contractor-stat-value">${c.completionRate}%</div>
+            <div class="contractor-stat-label">Completion</div>
+          </div>
+          <div class="contractor-stat">
+            <div class="contractor-stat-value">£${c.dayRate}</div>
+            <div class="contractor-stat-label">Day Rate</div>
+          </div>
+        </div>
       </div>
-      <div style="margin:var(--space-2) 0">${starRating(c.rating)}</div>
-      <div class="contractor-stats">
-        <div class="contractor-stat">
-          <div class="contractor-stat-value">${c.jobsCompleted}</div>
-          <div class="contractor-stat-label">Jobs Done</div>
-        </div>
-        <div class="contractor-stat">
-          <div class="contractor-stat-value">${c.avgResponseHrs}h</div>
-          <div class="contractor-stat-label">Avg Response</div>
-        </div>
-        <div class="contractor-stat">
-          <div class="contractor-stat-value">£${c.dayRate}</div>
-          <div class="contractor-stat-label">Day Rate</div>
-        </div>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function openContractorDrawer(id) {
   const c = CONTRACTORS.find(x => x.id === id);
   if (!c) return;
+
+  const rankInfo = CONTRACTOR_RANKINGS.find(r => r.id === id);
+  const rank = rankInfo ? rankInfo.rank : '—';
+  const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '#' + rank;
+  const scoreColor = c.performanceScore >= 85 ? 'var(--status-good)' : c.performanceScore >= 70 ? 'var(--status-warning)' : 'var(--status-urgent)';
 
   const complianceDocs = [];
   if (c.compliance.gasSafe) complianceDocs.push({ type: 'Gas Safe Certificate', number: c.compliance.gasSafe.number, expiry: c.compliance.gasSafe.expiry });
@@ -103,9 +180,49 @@ function openContractorDrawer(id) {
   const isExpired = (dateStr) => new Date(dateStr) < new Date('2026-03-23');
   const jobs = MAINTENANCE_JOBS.filter(j => j.contractorId === id);
 
+  // Get tenant feedback from completed jobs
+  const feedbackJobs = jobs.filter(j => j.tenantFeedback);
+  const avgFeedbackRating = feedbackJobs.length > 0 ? (feedbackJobs.reduce((s, j) => s + j.tenantFeedback.rating, 0) / feedbackJobs.length).toFixed(1) : null;
+
   document.getElementById('drawer-contractor-title').textContent = c.name;
   document.getElementById('drawer-contractor-body').innerHTML = `
     <div style="margin-bottom:var(--space-4)">${statusBadge(c.status)} ${starRating(c.rating)}</div>
+
+    <!-- Performance Score -->
+    <div class="drawer-section">
+      <div class="drawer-section-title" style="display:flex;align-items:center;gap:var(--space-2)">🏆 Performance Ranking</div>
+      <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-4);margin-bottom:var(--space-3)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-3)">
+          <div>
+            <span style="font-size:28px;font-weight:800;color:${scoreColor}">${c.performanceScore}</span>
+            <span style="font-size:var(--text-sm);color:var(--text-muted)">/100</span>
+          </div>
+          <div style="font-size:24px">${medal}</div>
+        </div>
+        <div style="height:8px;border-radius:4px;background:var(--border);overflow:hidden;margin-bottom:var(--space-3)">
+          <div style="width:${c.performanceScore}%;height:100%;background:${scoreColor};border-radius:4px;transition:width 0.3s"></div>
+        </div>
+        <!-- Score breakdown -->
+        <div style="font-size:var(--text-xs);color:var(--text-muted);font-weight:600;text-transform:uppercase;margin-bottom:var(--space-2)">Score Breakdown</div>
+        ${[
+          { label: 'Tenant Rating', weight: '30%', value: c.rating + '/5', score: Math.round((c.rating / 5) * 30) },
+          { label: 'Response Time', weight: '20%', value: c.avgResponseHrs + 'h avg', score: Math.round(Math.max(0, (1 - c.avgResponseHrs / 48)) * 20) },
+          { label: 'Completion Rate', weight: '20%', value: c.completionRate + '%', score: Math.round((c.completionRate / 100) * 20) },
+          { label: 'Re-visit Rate', weight: '15%', value: c.revisitRate + '%', score: Math.round(Math.max(0, (1 - c.revisitRate / 20)) * 15) },
+          { label: 'Reliability', weight: '15%', value: c.reliabilityRate + '%', score: Math.round((c.reliabilityRate / 100) * 15) },
+        ].map(item => `
+          <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:6px">
+            <div style="width:110px;font-size:var(--text-xs);color:var(--text-secondary)">${item.label} (${item.weight})</div>
+            <div style="flex:1;height:4px;border-radius:2px;background:var(--border);overflow:hidden">
+              <div style="width:${(item.score / parseInt(item.weight)) * 100}%;height:100%;background:var(--primary);border-radius:2px"></div>
+            </div>
+            <div style="width:45px;font-size:var(--text-xs);font-weight:600;text-align:right;color:var(--text)">${item.score}/${parseInt(item.weight)}</div>
+            <div style="width:50px;font-size:10px;color:var(--text-muted);text-align:right">${item.value}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
     <div class="drawer-section">
       <div class="drawer-section-title">Contact</div>
       <div class="drawer-field"><span class="drawer-field-label">Contact Name</span><span class="drawer-field-value">${c.contact}</span></div>
@@ -113,13 +230,36 @@ function openContractorDrawer(id) {
       <div class="drawer-field"><span class="drawer-field-label">Phone</span><span class="drawer-field-value">${c.phone}</span></div>
     </div>
     <div class="drawer-section">
-      <div class="drawer-section-title">Performance</div>
-      <div class="drawer-field"><span class="drawer-field-label">Jobs Completed</span><span class="drawer-field-value">${c.jobsCompleted}</span></div>
+      <div class="drawer-section-title">Performance Details</div>
+      <div class="drawer-field"><span class="drawer-field-label">Jobs Completed</span><span class="drawer-field-value">${c.jobsCompleted} of ${c.totalAssigned} assigned</span></div>
       <div class="drawer-field"><span class="drawer-field-label">Avg Response</span><span class="drawer-field-value">${c.avgResponseHrs} hours</span></div>
+      <div class="drawer-field"><span class="drawer-field-label">On-Time Rate</span><span class="drawer-field-value">${c.onTimeRate}%</span></div>
       <div class="drawer-field"><span class="drawer-field-label">Day Rate</span><span class="drawer-field-value">£${c.dayRate}</span></div>
-      <div class="drawer-field"><span class="drawer-field-label">Re-visit Rate</span><span class="drawer-field-value">${c.revisitRate}%</span></div>
+      <div class="drawer-field"><span class="drawer-field-label">Re-visit Rate</span><span class="drawer-field-value" style="color:${c.revisitRate <= 4 ? 'var(--status-good)' : c.revisitRate <= 6 ? 'var(--status-warning)' : 'var(--status-urgent)'};font-weight:600">${c.revisitRate}%</span></div>
       <div class="drawer-field"><span class="drawer-field-label">Service Areas</span><span class="drawer-field-value">${c.serviceAreas.join(', ')}</span></div>
     </div>
+
+    <!-- Tenant Feedback Summary -->
+    ${feedbackJobs.length > 0 ? `
+      <div class="drawer-section">
+        <div class="drawer-section-title">💬 Tenant Feedback (${feedbackJobs.length} reviews)</div>
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius);padding:var(--space-3);margin-bottom:var(--space-3)">
+          <div style="font-size:20px;margin-bottom:var(--space-1)">${'⭐'.repeat(Math.round(avgFeedbackRating))}</div>
+          <div style="font-size:var(--text-sm);font-weight:600">${avgFeedbackRating}/5 average from ${c.feedbackCount} feedback responses</div>
+        </div>
+        ${feedbackJobs.map(j => `
+          <div style="border-bottom:1px solid var(--border);padding:var(--space-2) 0">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:var(--text-xs);font-weight:600">${j.id} — ${j.tenant || 'Communal'}</span>
+              <span style="font-size:var(--text-sm)">${'⭐'.repeat(j.tenantFeedback.rating)}</span>
+            </div>
+            <p style="font-size:var(--text-xs);color:var(--text-secondary);margin:4px 0;font-style:italic">"${j.tenantFeedback.comment}"</p>
+            <div style="font-size:10px;color:var(--text-muted)">Resolved: ${j.tenantFeedback.resolved ? '✅' : '❌'} · ${formatDate(j.tenantFeedback.submittedAt)}</div>
+          </div>
+        `).join('')}
+      </div>
+    ` : ''}
+
     <div class="drawer-section">
       <div class="drawer-section-title">Compliance Documents</div>
       ${complianceDocs.map(doc => `
