@@ -25,61 +25,6 @@ function renderContractors() {
       </div>
     ` : ''}
 
-    <!-- Performance Ranking Leaderboard -->
-    <div class="card" style="margin-bottom:var(--space-5)">
-      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <h3 class="card-title">🏆 Performance Rankings</h3>
-          <p class="card-subtitle">Composite score: Tenant Rating (30%) + Response Time (20%) + Completion Rate (20%) + Re-visit Rate (15%) + Reliability (15%)</p>
-        </div>
-      </div>
-      <table class="data-table" style="margin-top:var(--space-3)">
-        <thead>
-          <tr>
-            <th style="width:40px">Rank</th>
-            <th>Contractor</th>
-            <th>Trade</th>
-            <th style="text-align:center">Rating</th>
-            <th style="text-align:center">Response</th>
-            <th style="text-align:center">Completion</th>
-            <th style="text-align:center">Re-visit</th>
-            <th style="text-align:center">Reliability</th>
-            <th style="text-align:center">Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${CONTRACTOR_RANKINGS.map(c => {
-            const medal = c.rank === 1 ? '🥇' : c.rank === 2 ? '🥈' : c.rank === 3 ? '🥉' : c.rank;
-            const scoreColor = c.performanceScore >= 85 ? 'var(--status-good)' : c.performanceScore >= 70 ? 'var(--status-warning)' : 'var(--status-urgent)';
-            const barWidth = c.performanceScore;
-            return `
-              <tr onclick="openContractorDrawer('${c.id}')" style="cursor:pointer;${c.status === 'Expired Docs' ? 'opacity:0.6' : ''}">
-                <td style="font-size:var(--text-md);text-align:center">${medal}</td>
-                <td>
-                  <div style="font-weight:600;font-size:var(--text-sm)">${c.name}</div>
-                  <div style="font-size:var(--text-xs);color:var(--text-muted)">${c.contact}</div>
-                </td>
-                <td style="font-size:var(--text-xs)">${c.trades.join(', ')}</td>
-                <td style="text-align:center;font-size:var(--text-sm)">⭐ ${c.rating}</td>
-                <td style="text-align:center;font-size:var(--text-sm)">${c.avgResponseHrs}h</td>
-                <td style="text-align:center;font-size:var(--text-sm)">${c.completionRate}%</td>
-                <td style="text-align:center;font-size:var(--text-sm);color:${c.revisitRate <= 4 ? 'var(--status-good)' : c.revisitRate <= 6 ? 'var(--status-warning)' : 'var(--status-urgent)'}">${c.revisitRate}%</td>
-                <td style="text-align:center;font-size:var(--text-sm)">${c.reliabilityRate}%</td>
-                <td style="text-align:center;min-width:100px">
-                  <div style="display:flex;align-items:center;gap:var(--space-2);justify-content:center">
-                    <div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden;max-width:60px">
-                      <div style="width:${barWidth}%;height:100%;background:${scoreColor};border-radius:3px"></div>
-                    </div>
-                    <span style="font-weight:700;color:${scoreColor};font-size:var(--text-sm)">${c.performanceScore}</span>
-                  </div>
-                </td>
-              </tr>
-            `;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>
-
     <div class="filter-bar">
       <div class="topbar-search" style="position:relative">
         <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
@@ -118,9 +63,6 @@ function renderContractors() {
 
 function renderContractorCards(contractors) {
   return contractors.map(c => {
-    const rankInfo = CONTRACTOR_RANKINGS.find(r => r.id === c.id);
-    const rank = rankInfo ? rankInfo.rank : '—';
-    const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
     const scoreColor = c.performanceScore >= 85 ? 'var(--status-good)' : c.performanceScore >= 70 ? 'var(--status-warning)' : 'var(--status-urgent)';
 
     return `
@@ -128,7 +70,7 @@ function renderContractorCards(contractors) {
         <div class="contractor-header">
           <div class="contractor-avatar">${initials(c.contact)}</div>
           <div>
-            <div class="contractor-name">${medal ? medal + ' ' : ''}${c.name}</div>
+            <div class="contractor-name">${c.name}</div>
             <div class="contractor-trade">${c.trades.join(', ')}</div>
           </div>
           ${statusBadge(c.status)}

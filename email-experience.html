@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience PropCore AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/email-experience.css">
+</head>
+<body>
+  <div class="email-container">
+    <header class="email-header">
+      <div class="brand">
+        <span class="brand-icon">🏠</span>
+        <span class="brand-name">PropCore AI</span>
+      </div>
+    </header>
+
+    <div class="slideshow" id="slideshow">
+      <!-- Slide 1: The Problem -->
+      <section class="slide active" data-index="0">
+        <div class="slide-content">
+          <span class="badge">The Fragmentation</span>
+          <h1 class="headline">Management,<br>multiplied.</h1>
+          <p class="subcopy">Maintenance. Rent. Communication. Documents. When your systems don't talk, your team can't breathe.</p>
+          <div class="illustration-gap">
+            <div class="bubble bubble-1">🔧 Maintenance</div>
+            <div class="bubble bubble-2">💷 Rent</div>
+            <div class="bubble bubble-3">💬 Comms</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: The Pain -->
+      <section class="slide" data-index="1">
+        <div class="slide-content">
+          <span class="badge">The Pain</span>
+          <h1 class="headline">The cost of<br>the gap.</h1>
+          <p class="subcopy">Delayed repairs lead to tenant frustration. Contractor chasing leads to wasted hours. Fragmented data leads to missed revenue.</p>
+          <ul class="pain-list">
+            <li><span>✕</span> Slow contractor updates</li>
+            <li><span>✕</span> Unclear status for residents</li>
+            <li><span>✕</span> Rent collection delays</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 3: The Solution -->
+      <section class="slide" data-index="2">
+        <div class="slide-content">
+          <span class="badge badge-success">The Solution</span>
+          <h1 class="headline">PropCore AI.<br>Unified.</h1>
+          <p class="subcopy">One clean dashboard for every job, payment, and message. AI-powered automation that resolves issues before they escalate.</p>
+          <div class="hero-image-container">
+            <img src="hero-ui.png" alt="PropCore Dashboard UI" class="hero-img">
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: The Benefit -->
+      <section class="slide" data-index="3">
+        <div class="slide-content">
+          <span class="badge">The Benefit</span>
+          <h1 class="headline">Speed is the<br>new standard.</h1>
+          <p class="subcopy">Fewer missed tasks. Faster responses. Higher tenant satisfaction. Operational excellence, delivered daily.</p>
+          <div class="stat-grid">
+            <div class="stat-item">
+              <span class="stat-val">3.5x</span>
+              <span class="stat-lab">Faster Resolution</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val">98%</span>
+              <span class="stat-lab">Tenant Satisfaction</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: The Proof -->
+      <section class="slide" data-index="4">
+        <div class="slide-content">
+          <span class="badge">The Proof</span>
+          <h1 class="headline">Clarity,<br>at every level.</h1>
+          <p class="subcopy">Real-time status tracking and automated audit trails. No more manual follow-ups or lost visibility.</p>
+          <div class="proof-card">
+            <div class="proof-line">
+              <span class="dot dot-success"></span>
+              <span class="proof-text">Boiler Service Scheduled</span>
+            </div>
+            <div class="proof-line">
+              <span class="dot dot-primary"></span>
+              <span class="proof-text">Rent Collection Verified</span>
+            </div>
+            <div class="proof-line">
+              <span class="dot dot-primary"></span>
+              <span class="proof-text">Tenant Inquiry Resolved</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: The CTA -->
+      <section class="slide" data-index="5">
+        <div class="slide-content centeralign">
+          <h1 class="headline">The future of<br>management.</h1>
+          <p class="subcopy">Join 500+ agencies scaling with PropCore AI.</p>
+          <div class="cta-actions">
+            <a href="index.html" class="btn-primary">Explore Platform</a>
+            <a href="#" class="btn-secondary">Book a Demo</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="email-footer">
+      <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" aria-label="Previous slide">←</button>
+        <div class="dots" id="dots">
+          <!-- Dots generated by JS -->
+        </div>
+        <button class="nav-btn" id="nextBtn" aria-label="Next slide">→</button>
+      </div>
+      <div class="fallback-note">
+        <p>Interactive experience. <a href="mailto:hello@propcoreAI.com">Contact Sales</a> | <a href="#">View static version</a></p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+
+    // Generate dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot-nav');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot-nav');
+
+    function updateNav() {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === currentIndex);
+        dots[i].classList.toggle('active', i === currentIndex);
+      });
+      prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+      nextBtn.style.opacity = currentIndex === slides.length - 1 ? '0.3' : '1';
+    }
+
+    function goToSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      currentIndex = index;
+      updateNav();
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+      if (e.key === 'ArrowRight') goToSlide(currentIndex + 1);
+    });
+
+    // Touch support (simple)
+    let startX = 0;
+    document.getElementById('slideshow').addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
+    document.getElementById('slideshow').addEventListener('touchend', (e) => {
+      let diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        goToSlide(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+      }
+    });
+
+    updateNav();
+  </script>
+</body>
+</html>

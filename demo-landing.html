@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropCore AI — Interactive Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      letter-spacing: -1px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #0f172a;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 18px;
+      transition: background-color 0.2s, transform 0.2s;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    /* ====== INTERACTIVE TOUR ====== */
+    .tour-section {
+      max-width: 1200px;
+      margin: 0 auto 100px;
+      padding: 0 20px;
+    }
+
+    .tour-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+
+    .tour-tab {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      padding: 10px 20px;
+      transition: color 0.2s;
+    }
+
+    .tour-tab:hover {
+      color: var(--text);
+    }
+
+    .tour-tab.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .tour-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -21px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .tour-container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+    }
+
+    .browser-header {
+      background: #f1f5f9;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot.red { background: #ef4444; }
+    .dot.yellow { background: #f59e0b; }
+    .dot.green { background: #10b981; }
+
+    .browser-url {
+      flex-grow: 1;
+      text-align: center;
+      margin: 0 40px;
+      background: white;
+      border-radius: 6px;
+      padding: 6px 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      border: 1px solid #e2e8f0;
+    }
+
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      height: 700px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .overlay-message {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-size: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      white-space: nowrap;
+    }
+
+    .overlay-message.visible {
+      opacity: 1;
+    }
+
+    /* ====== BOTTOM CTA ====== */
+    .bottom-cta {
+      background: #0f172a;
+      padding: 80px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .bottom-cta h2 {
+      font-size: 36px;
+      margin-bottom: 24px;
+    }
+
+    .bottom-cta p {
+      font-size: 18px;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-content h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: #0f172a;
+    }
+
+    .modal-content p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus {
+      border-color: var(--primary);
+    }
+
+    .close-modal {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .close-modal:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 36px; }
+      .tour-controls { flex-direction: column; align-items: center; gap: 8px; }
+      .tour-tab::after { display: none; }
+      .iframe-wrapper { height: 500px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="badge">Walkthrough Experience</div>
+    <h1>The OS for Modern Property Verification.</h1>
+    <p>Take an interactive tour of the PropCore AI platform. Seamlessly connect your staff and tenants in one beautiful environment.</p>
+    <button class="cta-btn trigger-modal">Book a Live Demo</button>
+  </header>
+
+  <!-- Interactive Tour -->
+  <section class="tour-section">
+    <div class="tour-controls">
+      <button class="tour-tab active" data-target="staff">Staff Dashboard Focus</button>
+      <button class="tour-tab" data-target="tenant">Tenant Portal Focus</button>
+    </div>
+
+    <div class="tour-container">
+      <div class="browser-header">
+        <div class="browser-dots">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="browser-url" id="browser-url">app.propcore-ai.com/dashboard</div>
+      </div>
+      <div class="iframe-wrapper">
+        <iframe id="demo-iframe" src="index.html"></iframe>
+        <div class="overlay-message" id="overlay-msg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="bottom-cta">
+    <h2>Ready to transform your agency?</h2>
+    <p>Join over 500+ top-tier lettings agencies that trust PropCore AI to streamline their operations and delight their tenants.</p>
+    <button class="cta-btn trigger-modal" style="background-color: white; color: #0f172a;">Get in Touch</button>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="demo-modal">
+    <div class="modal-content">
+      <h3>Book Your Demo</h3>
+      <p>Leave your details and our team will get back to you shortly.</p>
+      <div class="form-group">
+        <label>Work Email</label>
+        <input type="email" placeholder="jane@agency.com">
+      </div>
+      <div class="form-group">
+        <label>Agency Name</label>
+        <input type="text" placeholder="Acme Estates">
+      </div>
+      <button class="cta-btn" style="width: 100%; margin-top: 10px;" onclick="alert('Thanks! In a real app, this would submit to your backend.')">Submit Request</button>
+      <button class="close-modal" id="close-modal">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    // Tab Switching Logic
+    const tabs = document.querySelectorAll('.tour-tab');
+    const iframe = document.getElementById('demo-iframe');
+    const urlBar = document.getElementById('browser-url');
+    const overlayMsg = document.getElementById('overlay-msg');
+
+    const tourData = {
+      staff: {
+        src: 'index.html',
+        url: 'app.propcore-ai.com/dashboard',
+        messages: [
+          "Explore the rich property portfolio overlay.",
+          "Track real-time maintenance requests seamlessly.",
+          "Everything in one elegant, modern interface."
+        ]
+      },
+      tenant: {
+        src: 'tenant-portal.html',
+        url: 'tenant.propcore-ai.com/home',
+        messages: [
+          "A stunning portal designed specifically for your tenants.",
+          "Easy rent payments and automated issue reporting.",
+          "Instantly reduce redundant emails and calls."
+        ]
+      }
+    };
+
+    let messageInterval;
+
+    function showOverlayMessages(messages) {
+      clearInterval(messageInterval);
+      let index = 0;
+      
+      const changeMessage = () => {
+        if (index >= messages.length) index = 0; // loop
+        
+        overlayMsg.classList.remove('visible');
+        setTimeout(() => {
+          overlayMsg.textContent = messages[index];
+          overlayMsg.classList.add('visible');
+          index++;
+        }, 500);
+      };
+
+      changeMessage();
+      messageInterval = setInterval(changeMessage, 4000);
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active state
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Update iframe and UI
+        const target = tab.getAttribute('data-target');
+        const data = tourData[target];
+        
+        iframe.src = data.src;
+        urlBar.textContent = data.url;
+        
+        // Restart messages
+        showOverlayMessages(data.messages);
+      });
+    });
+
+    // Start initial messages
+    showOverlayMessages(tourData.staff.messages);
+
+    // Modal Logic
+    const triggers = document.querySelectorAll('.trigger-modal');
+    const modal = document.getElementById('demo-modal');
+    const closeBtn = document.getElementById('close-modal');
+
+    triggers.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modal.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>

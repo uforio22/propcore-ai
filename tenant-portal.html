@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropCore — Tenant Portal</title>
+  <meta name="description" content="PropCore Tenant Portal — manage your tenancy, rent, maintenance, and documents">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/tenant-portal.css">
+</head>
+<body class="tenant-portal">
+  <div class="tp-app">
+    <!-- Sidebar -->
+    <aside class="tp-sidebar" id="tp-sidebar">
+      <div class="tp-sidebar-brand">
+        <span class="tp-brand-icon">🏠</span>
+        <span class="tp-brand-text">PropCore</span>
+        <span class="tp-brand-tag">Tenant</span>
+      </div>
+
+      <nav class="tp-nav">
+        <a class="tp-nav-item active" data-page="home">
+          <span class="tp-nav-icon">🏡</span>
+          <span class="tp-nav-label">Home</span>
+        </a>
+        <a class="tp-nav-item" data-page="rent">
+          <span class="tp-nav-icon">💷</span>
+          <span class="tp-nav-label">Rent & Payments</span>
+        </a>
+        <a class="tp-nav-item" data-page="maintenance">
+          <span class="tp-nav-icon">🔧</span>
+          <span class="tp-nav-label">Maintenance</span>
+          <span class="tp-nav-badge" id="tp-maint-badge">1</span>
+        </a>
+        <a class="tp-nav-item" data-page="documents">
+          <span class="tp-nav-icon">📄</span>
+          <span class="tp-nav-label">Documents</span>
+        </a>
+        <a class="tp-nav-item" data-page="messages">
+          <span class="tp-nav-icon">💬</span>
+          <span class="tp-nav-label">Messages</span>
+          <span class="tp-nav-badge" id="tp-msg-badge">2</span>
+        </a>
+        <a class="tp-nav-item" data-page="appointments">
+          <span class="tp-nav-icon">📅</span>
+          <span class="tp-nav-label">Appointments</span>
+        </a>
+      </nav>
+
+      <!-- Tenant Switcher (demo only) -->
+      <div class="tp-switcher">
+        <label class="tp-switcher-label">Demo as:</label>
+        <select class="tp-switcher-select" id="tenant-switcher">
+          <option value="T001">Emma Richardson</option>
+          <option value="T003">Liam Carter</option>
+          <option value="T006">Priya Sharma</option>
+          <option value="T010">Jack Morrison</option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="tp-main">
+      <!-- Top bar -->
+      <header class="tp-topbar">
+        <button class="tp-menu-btn" id="tp-menu-btn">☰</button>
+        <div class="tp-topbar-left">
+          <h2 class="tp-topbar-greeting" id="tp-greeting">Good morning, Emma</h2>
+        </div>
+        <div class="tp-topbar-right">
+          <div class="tp-topbar-property" id="tp-property-label">14 Manor Road, Flat 1</div>
+          <div class="tp-avatar" id="tp-avatar">ER</div>
+        </div>
+      </header>
+
+      <div class="tp-content" id="tp-page-content">
+        <!-- Dynamic page content -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Shared data (reuse from staff dashboard) -->
+  <script src="js/data/properties.js"></script>
+  <script src="js/data/tenants.js"></script>
+  <script src="js/data/maintenance.js"></script>
+  <script src="js/data/rent.js"></script>
+  <script src="js/data/contractors.js"></script>
+  <script src="js/data/activity.js"></script>
+  <script src="js/data/tenant-portal-data.js"></script>
+  <script src="js/components/components.js"></script>
+
+  <!-- Tenant portal pages -->
+  <script src="js/pages/tenant-home.js"></script>
+  <script src="js/pages/tenant-rent.js"></script>
+  <script src="js/pages/tenant-maintenance.js"></script>
+  <script src="js/pages/tenant-documents.js"></script>
+  <script src="js/pages/tenant-messages.js"></script>
+  <script src="js/pages/tenant-appointments.js"></script>
+  <script src="js/tenant-app.js"></script>
+</body>
+</html>
