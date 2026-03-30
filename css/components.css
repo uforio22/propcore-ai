@@ -273,7 +273,7 @@
   right: 0;
   width: 480px;
   max-width: 90vw;
-  height: 100vh;
+  height: 100%;
   background: var(--bg-card);
   box-shadow: var(--shadow-lg);
   z-index: 301;
@@ -531,7 +531,7 @@
 .timeline-dot--green { border-color: var(--status-good); background: var(--status-good); }
 .timeline-dot--red { border-color: var(--status-urgent); background: var(--status-urgent); }
 
-.timeline-content {}
+
 
 .timeline-time {
   font-size: var(--text-xs);

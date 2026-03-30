@@ -213,11 +213,17 @@
       padding: 80px 20px;
       text-align: center;
       color: white;
+      font-family: 'Poppins', sans-serif; /* new font */
     }
 
     .bottom-cta h2 {
       font-size: 36px;
       margin-bottom: 24px;
+      font-family: 'Poppins', sans-serif; /* new font */
+    }
+
+    .bottom-cta .cta-btn {
+      font-family: 'Poppins', sans-serif; /* new font for button */
     }
 
     .bottom-cta p {
@@ -356,8 +362,7 @@
 
   <!-- Bottom CTA -->
   <section class="bottom-cta">
-    <h2>Ready to transform your agency?</h2>
-    <p>Join over 500+ top-tier lettings agencies that trust PropCore AI to streamline their operations and delight their tenants.</p>
+    <h2>Your agency, fully automated</h2>
     <button class="cta-btn trigger-modal" style="background-color: white; color: #0f172a;">Get in Touch</button>
   </section>
 
@@ -366,15 +371,22 @@
     <div class="modal-content">
       <h3>Book Your Demo</h3>
       <p>Leave your details and our team will get back to you shortly.</p>
-      <div class="form-group">
-        <label>Work Email</label>
-        <input type="email" placeholder="jane@agency.com">
+      <form id="demo-form" name="contact" method="POST" data-netlify="true">
+        <div class="form-group">
+          <label>Work Email</label>
+          <input type="email" name="email" placeholder="jane@agency.com" required>
+        </div>
+        <div class="form-group">
+          <label>Agency Name</label>
+          <input type="text" name="agency" placeholder="Acme Estates" required>
+        </div>
+        <button type="submit" class="cta-btn" style="width: 100%; margin-top: 10px;">Submit Request</button>
+      </form>
+      <div id="form-success" style="display: none; text-align: center; padding: 20px 0;">
+        <h3 style="color: #10b981; margin-bottom: 10px;">Thank You!</h3>
+        <p>Your request has been received. Our team will be in touch shortly to schedule a call.</p>
+        <button class="cta-btn close-success" style="margin-top: 15px;">Close</button>
       </div>
-      <div class="form-group">
-        <label>Agency Name</label>
-        <input type="text" placeholder="Acme Estates">
-      </div>
-      <button class="cta-btn" style="width: 100%; margin-top: 10px;" onclick="alert('Thanks! In a real app, this would submit to your backend.')">Submit Request</button>
       <button class="close-modal" id="close-modal">Cancel</button>
     </div>
   </div>
@@ -414,7 +426,13 @@
       let index = 0;
       
       const changeMessage = () => {
-        if (index >= messages.length) index = 0; // loop
+        if (index >= messages.length) {
+          clearInterval(messageInterval);
+          setTimeout(() => {
+            overlayMsg.classList.remove('visible');
+          }, 4000);
+          return;
+        }
         
         overlayMsg.classList.remove('visible');
         setTimeout(() => {
@@ -469,6 +487,58 @@
         modal.classList.remove('active');
       }
     });
+
+    // Form AJAX Submission logic
+    const demoForm = document.getElementById('demo-form');
+    const formSuccess = document.getElementById('form-success');
+    const closeSuccessBtn = document.querySelector('.close-success');
+
+    if (demoForm) {
+      demoForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = demoForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(demoForm);
+
+        fetch('/', {
+          method: 'POST',
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
+        })
+        .then(() => {
+          // Hide form and show success message
+          demoForm.style.display = 'none';
+          formSuccess.style.display = 'block';
+        })
+        .catch((error) => {
+          alert('There was an error submitting the form. Please try again.');
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        });
+      });
+    }
+
+    if (closeSuccessBtn) {
+      closeSuccessBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+        
+        // Reset the form state after modal fades out
+        setTimeout(() => {
+          demoForm.reset();
+          demoForm.style.display = 'block';
+          formSuccess.style.display = 'none';
+          const submitBtn = demoForm.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.textContent = 'Submit Request';
+            submitBtn.disabled = false;
+          }
+        }, 300);
+      });
+    }
   </script>
 </body>
 </html>

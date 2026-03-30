@@ -1,9 +1,13 @@
-/* ===== PropCore AI — Tenant Portal Styles ===== */
+body.tenant-portal {
+  overflow: auto;
+  height: 100%;
+}
 
 /* Layout */
 .tp-app {
   display: flex;
-  min-height: 100vh;
+  height: 100%;
+  overflow: hidden;
   background: var(--bg-primary);
 }
 
@@ -127,9 +131,12 @@
 /* Main */
 .tp-main {
   flex: 1;
+  min-height: 0;
   margin-left: 240px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Top bar */
